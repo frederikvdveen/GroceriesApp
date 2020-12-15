@@ -18,10 +18,10 @@ struct ContentView: View {
             TextField("Neuer Eintrag", text: $newWord, onCommit: addNewWord)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            List{
-                ForEach(usedWords) { word in
-                    Text(usedWords)
-                }
+            List(usedWords, id: \.self) { data in
+                Text(data)
+                
+                
             }
         }
     }
