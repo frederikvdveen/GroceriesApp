@@ -12,7 +12,15 @@ struct ContentView: View {
     struct GrocerieItem: Hashable{
         var name: String
         var quantity: Int = 1
+        var measurement: Measurement = .piece
         
+    }
+    
+    enum Measurement {
+        case piece
+        case weight
+        case liter
+        case tsp
     }
     
     @State var GroceriesArray = [GrocerieItem]()
@@ -25,14 +33,14 @@ struct ContentView: View {
             TextField("Neuer Eintrag", text: $newEntry, onCommit: addNewEntry)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+           
             List{
                 ForEach(GroceriesArray, id: \.self){ data in
                     HStack{
                         Text(data.name)
                         Spacer()
                         Text("\(data.quantity)")
-                            .fontWeight(.ultraLight)
-                        
+                            .fontWeight(.thin)
                     }
                     
                 }
@@ -41,6 +49,7 @@ struct ContentView: View {
             
         }
     }
+    
     func addNewEntry() {
         let answer =
             GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines))
