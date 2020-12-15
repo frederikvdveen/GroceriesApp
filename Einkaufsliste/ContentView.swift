@@ -9,34 +9,55 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var usedWords = [String]()
+    struct GrocerieItem: Hashable{
+        var name: String
+        var quantity: Int = 1
+        
+    }
+    
+    @State var GroceriesArray = [GrocerieItem]()
     @State var rootWord = ""
-    @State var newWord = ""
+    @State var newEntry = ""
+    
     
     var body: some View {
         VStack{
-            TextField("Neuer Eintrag", text: $newWord, onCommit: addNewWord)
+            TextField("Neuer Eintrag", text: $newEntry, onCommit: addNewEntry)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            List(usedWords, id: \.self) { data in
-                Text(data)
-                
-                
+            List{
+                ForEach(GroceriesArray, id: \.self){ data in
+                    HStack{
+                        Text(data.name)
+                        Spacer()
+                        Text("\(data.quantity)")
+                            .fontWeight(.thin)
+                    }
+                    
+                }
+                .onDelete(perform: deleteEntry)
             }
+            
         }
     }
-    func addNewWord() {
+    func addNewEntry() {
         let answer =
-            newWord.trimmingCharacters(in: .whitespacesAndNewlines)
+            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines))
         
-        guard answer.count > 0 else {
+        guard answer.name.count > 0 else {
             return
         }
         // extra valiation
         
-        usedWords.insert(answer, at: 0)
-        newWord = ""
+        GroceriesArray.insert(answer, at: 0)
+        newEntry = ""
         
+    }
+
+    func deleteEntry(index: IndexSet) {
+      if let first = index.first {
+        GroceriesArray.remove(at: first)
+      }
     }
 }
 
