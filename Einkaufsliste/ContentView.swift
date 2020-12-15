@@ -31,7 +31,8 @@ struct ContentView: View {
                         Text(data.name)
                         Spacer()
                         Text("\(data.quantity)")
-                            .fontWeight(.thin)
+                            .fontWeight(.ultraLight)
+                        
                     }
                     
                 }
