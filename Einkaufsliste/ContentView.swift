@@ -33,9 +33,16 @@ struct ContentView: View {
                         HStack{
                             Text(data.name)
                             Spacer()
-                            Text("\(data.quantity)")
-                                .fontWeight(.thin)
-                            Text("\(data.unit)")
+                            
+                            //Checks if data.quantity has decimals
+                            if floor(data.quantity) == data.quantity {
+                                Text(String(format: "%.0f", data.quantity))
+                                    .fontWeight(.thin)
+                            } else {
+                                Text(String(format: "%.2f", data.quantity))
+                                    .fontWeight(.thin)
+                            }
+                            Text(data.unit)
                                 .fontWeight(.thin)
                         }
                         
@@ -48,7 +55,7 @@ struct ContentView: View {
 
     func addNewEntry() {
         let answer =
-            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 2.7, unit: "kg")
+            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 8.3974598347598, unit: "kg")
         
         guard answer.name.count > 0 else {
             return
