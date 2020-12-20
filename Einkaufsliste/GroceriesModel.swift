@@ -9,14 +9,8 @@ import Foundation
 
 struct GrocerieItem: Hashable {
     var name: String
-    var quantity: Int = 1
-    var unit: Unit = .piece
-    
+    var quantity: Double = 1.0
+    var unit: String = ""
 }
 
-enum Unit {
-    case piece
-    case weight
-    case liter
-    case tsp
-}
+let products: Set = [""]

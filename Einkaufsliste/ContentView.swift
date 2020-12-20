@@ -9,11 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    
     @State var GroceriesArray = [GrocerieItem]()
-    @State var rootWord = ""
     @State var newEntry = ""
-    
     
     var body: some View {
         VStack{
@@ -28,6 +25,9 @@ struct ContentView: View {
                         Spacer()
                         Text("\(data.quantity)")
                             .fontWeight(.thin)
+//                            .padding()
+                        Text("\(data.unit)")
+                            .fontWeight(.thin)
                     }
                     
                 }
@@ -39,7 +39,7 @@ struct ContentView: View {
     
     func addNewEntry() {
         let answer =
-            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines))
+            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 2.7, unit: "kg")
         
         guard answer.name.count > 0 else {
             return
