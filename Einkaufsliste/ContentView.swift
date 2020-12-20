@@ -22,33 +22,36 @@ struct ContentView: View {
                 .padding()
             
             if typing && !newEntry.isEmpty {
-                List {
+                HStack{
                     ForEach(products.filter { $0.hasPrefix(newEntry)}, id: \.self) { data in
                         Text(data)
+                            .lineLimit(1)
+                            .allowsTightening(false)
+                            .truncationMode(.tail)
                     }
                 }
-            } else {
-                List {
-                    ForEach(GroceriesArray, id: \.self){ data in
-                        HStack{
-                            Text(data.name)
-                            Spacer()
-                            
-                            //Checks if data.quantity has decimals
-                            if floor(data.quantity) == data.quantity {
-                                Text(String(format: "%.0f", data.quantity))
-                                    .fontWeight(.thin)
-                            } else {
-                                Text(String(format: "%.2f", data.quantity))
-                                    .fontWeight(.thin)
-                            }
-                            Text(data.unit)
+            }
+
+            List {
+                ForEach(GroceriesArray, id: \.self){ data in
+                    HStack{
+                        Text(data.name)
+                        Spacer()
+                        
+                        //Checks if data.quantity has decimals
+                        if floor(data.quantity) == data.quantity {
+                            Text(String(format: "%.0f", data.quantity))
+                                .fontWeight(.thin)
+                        } else {
+                            Text(String(format: "%.2f", data.quantity))
                                 .fontWeight(.thin)
                         }
-                        
+                        Text(data.unit)
+                            .fontWeight(.thin)
                     }
-                    .onDelete(perform: deleteEntry)
+                    
                 }
+                .onDelete(perform: deleteEntry)
             }
         }
     }
