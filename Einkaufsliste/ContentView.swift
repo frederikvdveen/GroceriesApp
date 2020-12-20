@@ -21,17 +21,30 @@ struct ContentView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
-            if typing && !newEntry.isEmpty {
-                HStack{
-                    ForEach(products.filter { $0.hasPrefix(newEntry)}, id: \.self) { data in
-                        Text(data)
-                            .lineLimit(1)
-                            .allowsTightening(false)
-                            .truncationMode(.tail)
+            if isTyping() && !newEntry.isEmpty {
+                
+                if products.filter { $0.hasPrefix(newEntry) }.count > 0 {
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(products.filter { $0.hasPrefix(newEntry) }, id: \.self) { data in
+                                Button(action: {
+                                    newEntry = data
+                                    addNewEntry()
+                                }) {
+                                    Text(data)
+                                        .lineLimit(1)
+                                        .allowsTightening(false)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            
+                            }
+                        }
                     }
+                    .padding()
+                    
                 }
             }
-
+            
             List {
                 ForEach(GroceriesArray, id: \.self){ data in
                     HStack{
@@ -56,9 +69,13 @@ struct ContentView: View {
         }
     }
 
+    public func isTyping() -> Bool {
+        return typing == true
+    }
+    
     func addNewEntry() {
         let answer =
-            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 8.3974598347598, unit: "kg")
+            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 8, unit: "kg")
         
         guard answer.name.count > 0 else {
             return
