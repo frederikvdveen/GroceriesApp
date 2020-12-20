@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-    struct GrocerieItem: Hashable{
+    struct GrocerieItem: Hashable {
         var name: String
         var quantity: Int = 1
-        var measurement: Measurement = .piece
+        var unit: Unit = .piece
         
     }
     
-    enum Measurement {
+    enum Unit {
         case piece
         case weight
         case liter
