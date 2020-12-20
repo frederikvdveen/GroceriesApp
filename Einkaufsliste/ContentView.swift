@@ -9,19 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     
-    struct GrocerieItem: Hashable {
-        var name: String
-        var quantity: Int = 1
-        var unit: Unit = .piece
-        
-    }
-    
-    enum Unit {
-        case piece
-        case weight
-        case liter
-        case tsp
-    }
     
     @State var GroceriesArray = [GrocerieItem]()
     @State var rootWord = ""

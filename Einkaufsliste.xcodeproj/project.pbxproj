@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF2E93A7258FA53200465960 /* GroceriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2E93A6258FA53200465960 /* GroceriesModel.swift */; };
 		FF467DF8257E5F3A005C8F97 /* EinkaufslisteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF467DF7257E5F3A005C8F97 /* EinkaufslisteApp.swift */; };
 		FF467DFA257E5F3A005C8F97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF467DF9257E5F3A005C8F97 /* ContentView.swift */; };
 		FF467DFC257E5F3B005C8F97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF467DFB257E5F3B005C8F97 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF2E93A6258FA53200465960 /* GroceriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceriesModel.swift; sourceTree = "<group>"; };
 		FF467DF4257E5F3A005C8F97 /* Einkaufsliste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Einkaufsliste.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF467DF7257E5F3A005C8F97 /* EinkaufslisteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EinkaufslisteApp.swift; sourceTree = "<group>"; };
 		FF467DF9257E5F3A005C8F97 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				FF467DF7257E5F3A005C8F97 /* EinkaufslisteApp.swift */,
+				FF2E93A6258FA53200465960 /* GroceriesModel.swift */,
 				FF467DF9257E5F3A005C8F97 /* ContentView.swift */,
 				FF467DFB257E5F3B005C8F97 /* Assets.xcassets */,
 				FF467E00257E5F3B005C8F97 /* Info.plist */,
@@ -261,6 +264,7 @@
 			files = (
 				FF467DFA257E5F3A005C8F97 /* ContentView.swift in Sources */,
 				FF467DF8257E5F3A005C8F97 /* EinkaufslisteApp.swift in Sources */,
+				FF2E93A7258FA53200465960 /* GroceriesModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Einkaufsliste/Preview Content\"";
+				DEVELOPMENT_TEAM = XJMY4FG26P;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Einkaufsliste/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -440,6 +445,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Einkaufsliste/Preview Content\"";
+				DEVELOPMENT_TEAM = XJMY4FG26P;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Einkaufsliste/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
