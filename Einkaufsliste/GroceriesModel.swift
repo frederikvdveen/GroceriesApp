@@ -24,7 +24,9 @@ class GroceriesList: ObservableObject {
 }
 
 struct GrocerieItem: Hashable {
-    var name: String
+    let id = UUID()
+    
+    var name: String = ""
     var quantity: Double = 1.0
     var unit: String = ""
 }

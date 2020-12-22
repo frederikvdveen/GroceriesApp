@@ -26,7 +26,7 @@ struct ContentView: View {
             }
             
             List {
-                ForEach(groceriesList.getItems(), id: \.self){ data in
+                ForEach(groceriesList.getItems(), id: \.self) { data in
                     HStack{
                         Text(data.name)
                         Spacer()
@@ -42,14 +42,17 @@ struct ContentView: View {
                         Text(data.unit)
                             .fontWeight(.thin)
                     }
-                    
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        print(data.name)
+                    }
                 }
                 .onDelete(perform: deleteEntry)
             }
         }
     }
 
-    public func isTyping() -> Bool {
+    func isTyping() -> Bool {
         return typing == true
     }
     
@@ -72,6 +75,9 @@ struct ContentView: View {
       if let first = index.first {
         groceriesList.deleteItem(at: first)
       }
+    }
+
+    func markEntry(index: IndexSet) {
     }
 }
 
