@@ -16,7 +16,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack{
-            
             TextField("Neuer Eintrag", text: $newEntry, onEditingChanged: { self.typing = $0 }, onCommit: addNewEntry)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -36,7 +35,6 @@ struct ContentView: View {
                                         .allowsTightening(false)
                                 }
                                 .buttonStyle(PlainButtonStyle())
-                            
                             }
                         }
                     }
