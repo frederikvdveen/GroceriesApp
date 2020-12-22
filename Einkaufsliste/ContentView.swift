@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State var GroceriesArray = [GrocerieItem]()
+    @EnvironmentObject var groceriesList: GroceriesList
+
     @State var newEntry = ""
-    
     @State var typing = false
 
     var body: some View {
@@ -21,30 +20,13 @@ struct ContentView: View {
                 .padding()
             
             if isTyping() && !newEntry.isEmpty {
-                
-                if products.filter { $0.hasPrefix(newEntry) }.count > 0 {
-                    ScrollView(.horizontal){
-                        HStack{
-                            ForEach(products.filter { $0.hasPrefix(newEntry) }, id: \.self) { data in
-                                Button(action: {
-                                    newEntry = data
-                                    addNewEntry()
-                                }) {
-                                    Text(data)
-                                        .lineLimit(1)
-                                        .allowsTightening(false)
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                        }
-                    }
-                    .padding()
-                    
+                SuggestionsView(newEntry: $newEntry) {
+                    addNewEntry()
                 }
             }
             
             List {
-                ForEach(GroceriesArray, id: \.self){ data in
+                ForEach(groceriesList.getItems(), id: \.self){ data in
                     HStack{
                         Text(data.name)
                         Spacer()
@@ -80,14 +62,15 @@ struct ContentView: View {
         }
         // extra valiation
         
-        GroceriesArray.insert(answer, at: 0)
+        groceriesList.insertItem(answer)
+        products.insert(newEntry)
         newEntry = ""
         
     }
 
     func deleteEntry(index: IndexSet) {
       if let first = index.first {
-        GroceriesArray.remove(at: first)
+        groceriesList.deleteItem(at: first)
       }
     }
 }
@@ -95,5 +78,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(GroceriesList())
     }
 }

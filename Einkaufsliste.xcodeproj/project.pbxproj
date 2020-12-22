@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		26AC4CA5258FC74E0070636C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AC4CA4258FC74E0070636C /* Extensions.swift */; };
+		26E691C725923426006526CE /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E691C625923426006526CE /* SuggestionsView.swift */; };
 		FF2E93A7258FA53200465960 /* GroceriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2E93A6258FA53200465960 /* GroceriesModel.swift */; };
 		FF467DF8257E5F3A005C8F97 /* EinkaufslisteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF467DF7257E5F3A005C8F97 /* EinkaufslisteApp.swift */; };
 		FF467DFA257E5F3A005C8F97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF467DF9257E5F3A005C8F97 /* ContentView.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		26AC4CA4258FC74E0070636C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		26E691C625923426006526CE /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
 		FF2E93A6258FA53200465960 /* GroceriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceriesModel.swift; sourceTree = "<group>"; };
 		FF467DF4257E5F3A005C8F97 /* Einkaufsliste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Einkaufsliste.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF467DF7257E5F3A005C8F97 /* EinkaufslisteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EinkaufslisteApp.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				FF467DF7257E5F3A005C8F97 /* EinkaufslisteApp.swift */,
 				FF2E93A6258FA53200465960 /* GroceriesModel.swift */,
 				FF467DF9257E5F3A005C8F97 /* ContentView.swift */,
+				26E691C625923426006526CE /* SuggestionsView.swift */,
 				26AC4CA4258FC74E0070636C /* Extensions.swift */,
 				FF467DFB257E5F3B005C8F97 /* Assets.xcassets */,
 				FF467E00257E5F3B005C8F97 /* Info.plist */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26E691C725923426006526CE /* SuggestionsView.swift in Sources */,
 				FF467DFA257E5F3A005C8F97 /* ContentView.swift in Sources */,
 				FF467DF8257E5F3A005C8F97 /* EinkaufslisteApp.swift in Sources */,
 				FF2E93A7258FA53200465960 /* GroceriesModel.swift in Sources */,
