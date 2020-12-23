@@ -25,30 +25,7 @@ struct ContentView: View {
                 }
             }
             
-            List {
-                ForEach(groceriesList.getItems(), id: \.self) { data in
-                    HStack{
-                        Text(data.name)
-                        Spacer()
-                        
-                        //Checks if data.quantity has decimals
-                        if floor(data.quantity) == data.quantity {
-                            Text(String(format: "%.0f", data.quantity))
-                                .fontWeight(.thin)
-                        } else {
-                            Text(String(format: "%.2f", data.quantity))
-                                .fontWeight(.thin)
-                        }
-                        Text(data.unit)
-                            .fontWeight(.thin)
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        print(data.name)
-                    }
-                }
-                .onDelete(perform: deleteEntry)
-            }
+            GroceriesListView()
         }
     }
 
@@ -68,16 +45,6 @@ struct ContentView: View {
         groceriesList.insertItem(answer)
         products.insert(newEntry)
         newEntry = ""
-        
-    }
-
-    func deleteEntry(index: IndexSet) {
-      if let first = index.first {
-        groceriesList.deleteItem(at: first)
-      }
-    }
-
-    func markEntry(index: IndexSet) {
     }
 }
 
