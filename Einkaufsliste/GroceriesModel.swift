@@ -20,6 +20,7 @@ class GroceriesList: ObservableObject {
     
     func insertItem(_ item: GrocerieItem) {
         grocerieItems.insert(item, at: 0)
+        grocerieItems.sort(by: { $0.name < $1.name } )
     }
     
     func deleteItem(at: Int) {
@@ -62,7 +63,7 @@ struct GrocerieItem: Hashable, Identifiable {
     var quantity: Double = 1.0
     var unit: String = ""
     
-    var strokenOut: Bool = true
+    var strokenOut: Bool = false
     
     mutating func toggleStrokeState() {
         self.strokenOut.toggle()

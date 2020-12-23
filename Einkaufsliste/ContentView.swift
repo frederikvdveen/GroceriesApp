@@ -40,7 +40,7 @@ struct ContentView: View {
         guard answer.name.count > 0 else {
             return
         }
-        // extra valiation
+        // extra validation
         
         groceriesList.insertItem(answer)
         products.insert(newEntry)
