@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @EnvironmentObject var groceriesList: GroceriesList
 
@@ -19,10 +20,12 @@ struct ContentView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
-            if isTyping() && !newEntry.isEmpty {
-                SuggestionsView(newEntry: $newEntry) {
+            if isTyping() && !newEntry.isEmpty && products.filter({ $0.hasPrefix(newEntry) }).count > 0 {
+                SuggestionsView(newEntry: $newEntry)
+                {
                     addNewEntry()
                 }
+                .padding()
             }
             
             GroceriesListView()
@@ -34,6 +37,9 @@ struct ContentView: View {
     }
     
     func addNewEntry() {
+        var grocerieItem = GrocerieItem(name: "", quantity: 1.0, unit: "")
+        grocerieItem.fromString(entry: newEntry)
+        
         let answer =
             GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 8, unit: "kg")
         
@@ -43,7 +49,7 @@ struct ContentView: View {
         // extra validation
         
         groceriesList.insertItem(answer)
-        products.insert(newEntry)
+        products.insert(newEntry, at: 0)
         newEntry = ""
     }
 }

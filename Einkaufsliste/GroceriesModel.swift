@@ -68,6 +68,32 @@ struct GrocerieItem: Hashable, Identifiable {
     mutating func toggleStrokeState() {
         self.strokenOut.toggle()
     }
+    
+    func toString() -> String {
+        return "\(self.name) : \(self.quantity) \(self.unit)"
+    }
+    
+    mutating func fromString(entry: String) {
+        if entry.contains(":") {
+            var parts = entry.split(separator: ":")
+
+            self.name = String(parts[0]).trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            var rest = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
+            print("(\(rest))")
+            
+            var i = 0
+            while (CharacterSet.decimalDigits.contains(rest[i])) {
+                i += 1
+            }
+        } else {
+            self.name = entry
+            quantity = 1.0
+            unit = ""
+        }
+        
+        
+    }
 }
 
-var products: Set = ["Aalsuppe", "Agavendicksaft", "Ahornsirup", "Ajvar", "Ananas", "Anis", "Anona", "Apfel", "Apfelkompott", "Apfelkraut", "Backaroma", "Backfett", "Backware", "Backwerk", "Baiser", "Balsamessig", "Balsamico", "Banane", "Basilikum", "Bauernbrot", "Calzone", "Camembert", "Cannelloni", "Cashew", "Cashewnuss", "Cayennepfeffer", "Champignon", "Cheddarkäse", "Chester", "Chesterkäse", "Apfelsine", "Aprikose", "Artischocke", "Artischockenherz", "Aubergine", "Auflauf", "Austernpilz", "Avocado", "Bergkäse", "Bienenstich", "Birne", "Biskuitteig", "Bitterschokolade", "Blattsalat", "Blattspinat", "Blaubeere", "Blaukohl", "Blaukraut", "Blauschimmelkäse", "Blätterteig", "Blumenkohl", "Blutorange", "Blutwurst", "Blütenhonig", "Bockwurst", "Bohne", "Bohnenkraut", "Bohnensuppe", "Borschtsch", "Boskop", "Bouillon", "Bouillonwürfel", "Bratapfel", "Bratwurst", "Broccoli", "Brokkoli", "Brombeere", "Brot", "Brotaufstrich", "Brotsuppe", "Brotteig", "Brunnenkresse", "Brühwürfel", "Buchweizen", "Bulgur", "Butter", "Buttercreme", "Buttergebäck", "Butterkäse", "Butterkeks", "Butterpilz", "Büchsenmilch", "Béchamelsauce", "Chiasamen", "Chicken", "Nugetts", "Chicorée", "Chili", "Chilisauce", "Chilisoße", "Chinakohl", "Chorizo", "Christstollen", "Ciabatta", "Citrusfrucht", "Clementine", "Consommé", "Cookie", "Corned", "beef", "Cornflakes", "Couscous", "Cranberry", "Croissant", "Crème fraîche", "Curry", "Currypulver", "Currysauce", "Currysoße", "Currywurst", "Béchamelsoße"]
+var products = ["Aalsuppe", "Agavendicksaft", "Ahornsirup", "Ajvar", "Ananas", "Anis", "Anona", "Apfel", "Apfelkompott", "Apfelkraut", "Backaroma", "Backfett", "Backware", "Backwerk", "Baiser", "Balsamessig", "Balsamico", "Banane", "Basilikum", "Bauernbrot", "Calzone", "Camembert", "Cannelloni", "Cashew", "Cashewnuss", "Cayennepfeffer", "Champignon", "Cheddarkäse", "Chester", "Chesterkäse", "Apfelsine", "Aprikose", "Artischocke", "Artischockenherz", "Aubergine", "Auflauf", "Austernpilz", "Avocado", "Bergkäse", "Bienenstich", "Birne", "Biskuitteig", "Bitterschokolade", "Blattsalat", "Blattspinat", "Blaubeere", "Blaukohl", "Blaukraut", "Blauschimmelkäse", "Blätterteig", "Blumenkohl", "Blutorange", "Blutwurst", "Blütenhonig", "Bockwurst", "Bohne", "Bohnenkraut", "Bohnensuppe", "Borschtsch", "Boskop", "Bouillon", "Bouillonwürfel", "Bratapfel", "Bratwurst", "Broccoli", "Brokkoli", "Brombeere", "Brot", "Brotaufstrich", "Brotsuppe", "Brotteig", "Brunnenkresse", "Brühwürfel", "Buchweizen", "Bulgur", "Butter", "Buttercreme", "Buttergebäck", "Butterkäse", "Butterkeks", "Butterpilz", "Büchsenmilch", "Béchamelsauce", "Chiasamen", "Chicken", "Nugetts", "Chicorée", "Chili", "Chilisauce", "Chilisoße", "Chinakohl", "Chorizo", "Christstollen", "Ciabatta", "Citrusfrucht", "Clementine", "Consommé", "Cookie", "Corned", "beef", "Cornflakes", "Couscous", "Cranberry", "Croissant", "Crème fraîche", "Curry", "Currypulver", "Currysauce", "Currysoße", "Currywurst", "Béchamelsoße"]
