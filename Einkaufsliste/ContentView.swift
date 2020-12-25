@@ -42,13 +42,13 @@ struct ContentView: View {
         
         let answer =
             GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 8, unit: "kg")
-        
+
         guard answer.name.count > 0 else {
             return
         }
         // extra validation
         
-        groceriesList.insertItem(answer)
+        groceriesList.insertItem(grocerieItem)
         products.insert(newEntry, at: 0)
         newEntry = ""
     }

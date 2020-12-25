@@ -82,14 +82,20 @@ struct GrocerieItem: Hashable, Identifiable {
             var rest = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
             print("(\(rest))")
             
-            var i = 0
-            while (CharacterSet.decimalDigits.contains(rest[i])) {
-                i += 1
+            let regularExpression = #"\b((\d+(\.\d*)?)|("# + Locale.current.decimalSeparator! + #"\d+))"#
+            
+            if let number = rest.range(of: regularExpression, options: .regularExpression) {
+                if let q = Double(rest[number]) {
+                    self.quantity = q
+                }
+                rest.removeSubrange(number)
             }
+            
+            self.unit = rest.trimmingCharacters(in: .whitespacesAndNewlines)
         } else {
             self.name = entry
-            quantity = 1.0
-            unit = ""
+            self.quantity = 1.0
+            self.unit = ""
         }
         
         
