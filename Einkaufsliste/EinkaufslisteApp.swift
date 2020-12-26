@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct EinkaufslisteApp: App {
     @StateObject var groceriesList = GroceriesList()
+    @StateObject var products = Products()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(groceriesList)
+                .environmentObject(products)
         }
     }
 }

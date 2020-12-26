@@ -56,6 +56,13 @@ class GroceriesList: ObservableObject {
     }
 }
 
+enum GrocerieItemError: Error {
+    case InputIsEmpty
+    case NoNameFound
+    case NoQuantityFound
+}
+        
+
 struct GrocerieItem: Hashable, Identifiable {
     let id = UUID()
     
@@ -73,33 +80,57 @@ struct GrocerieItem: Hashable, Identifiable {
         return "\(self.name) : \(self.quantity) \(self.unit)"
     }
     
-    mutating func fromString(entry: String) {
-        if entry.contains(":") {
-            var parts = entry.split(separator: ":")
-
-            self.name = String(parts[0]).trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            var rest = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
-            print("(\(rest))")
-            
-            let regularExpression = #"\b((\d+(\.\d*)?)|("# + Locale.current.decimalSeparator! + #"\d+))"#
-            
-            if let number = rest.range(of: regularExpression, options: .regularExpression) {
-                if let q = Double(rest[number]) {
-                    self.quantity = q
-                }
-                rest.removeSubrange(number)
-            }
-            
-            self.unit = rest.trimmingCharacters(in: .whitespacesAndNewlines)
-        } else {
+    mutating func fromString(entry: String) throws {
+        let input = entry.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if input.count == 0 {
+            throw GrocerieItemError.InputIsEmpty
+        }
+        
+        if !input.contains(":") {
             self.name = entry
             self.quantity = 1.0
             self.unit = ""
+            
+            return
+        }
+            
+        if ":" == input.first {
+            throw GrocerieItemError.NoNameFound
         }
         
+        let parts = input.split(separator: ":")
+
+        self.name = String(parts[0]).trimmingCharacters(in: .whitespacesAndNewlines)
         
+        if 1 == parts.count {
+            self.quantity = 1.0
+            self.unit = ""
+            
+            return
+        }
+        
+        var rest = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
+            
+        if let number = rest.range(of: #"\b((\d+(\.\d*)?)|("# + Locale.current.decimalSeparator! + #"\d+))"#, options: .regularExpression) {
+            if let q = Double(rest[number]) {
+                self.quantity = q
+            } else {
+                throw GrocerieItemError.NoQuantityFound
+            }
+            rest.removeSubrange(number)
+        }
+        self.unit = rest.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 
-var products = ["Aalsuppe", "Agavendicksaft", "Ahornsirup", "Ajvar", "Ananas", "Anis", "Anona", "Apfel", "Apfelkompott", "Apfelkraut", "Backaroma", "Backfett", "Backware", "Backwerk", "Baiser", "Balsamessig", "Balsamico", "Banane", "Basilikum", "Bauernbrot", "Calzone", "Camembert", "Cannelloni", "Cashew", "Cashewnuss", "Cayennepfeffer", "Champignon", "Cheddarkäse", "Chester", "Chesterkäse", "Apfelsine", "Aprikose", "Artischocke", "Artischockenherz", "Aubergine", "Auflauf", "Austernpilz", "Avocado", "Bergkäse", "Bienenstich", "Birne", "Biskuitteig", "Bitterschokolade", "Blattsalat", "Blattspinat", "Blaubeere", "Blaukohl", "Blaukraut", "Blauschimmelkäse", "Blätterteig", "Blumenkohl", "Blutorange", "Blutwurst", "Blütenhonig", "Bockwurst", "Bohne", "Bohnenkraut", "Bohnensuppe", "Borschtsch", "Boskop", "Bouillon", "Bouillonwürfel", "Bratapfel", "Bratwurst", "Broccoli", "Brokkoli", "Brombeere", "Brot", "Brotaufstrich", "Brotsuppe", "Brotteig", "Brunnenkresse", "Brühwürfel", "Buchweizen", "Bulgur", "Butter", "Buttercreme", "Buttergebäck", "Butterkäse", "Butterkeks", "Butterpilz", "Büchsenmilch", "Béchamelsauce", "Chiasamen", "Chicken", "Nugetts", "Chicorée", "Chili", "Chilisauce", "Chilisoße", "Chinakohl", "Chorizo", "Christstollen", "Ciabatta", "Citrusfrucht", "Clementine", "Consommé", "Cookie", "Corned", "beef", "Cornflakes", "Couscous", "Cranberry", "Croissant", "Crème fraîche", "Curry", "Currypulver", "Currysauce", "Currysoße", "Currywurst", "Béchamelsoße"]
+class Products: ObservableObject {
+    @Published var products = ["Aalsuppe", "Agavendicksaft", "Ahornsirup", "Ajvar", "Ananas", "Anis", "Anona", "Apfel", "Apfelkompott", "Apfelkraut", "Backaroma", "Backfett", "Backware", "Backwerk", "Baiser", "Balsamessig", "Balsamico", "Banane", "Basilikum", "Bauernbrot", "Calzone", "Camembert", "Cannelloni", "Cashew", "Cashewnuss", "Cayennepfeffer", "Champignon", "Cheddarkäse", "Chester", "Chesterkäse", "Apfelsine", "Aprikose", "Artischocke", "Artischockenherz", "Aubergine", "Auflauf", "Austernpilz", "Avocado", "Bergkäse", "Bienenstich", "Birne", "Biskuitteig", "Bitterschokolade", "Blattsalat", "Blattspinat", "Blaubeere", "Blaukohl", "Blaukraut", "Blauschimmelkäse", "Blätterteig", "Blumenkohl", "Blutorange", "Blutwurst", "Blütenhonig", "Bockwurst", "Bohne", "Bohnenkraut", "Bohnensuppe", "Borschtsch", "Boskop", "Bouillon", "Bouillonwürfel", "Bratapfel", "Bratwurst", "Broccoli", "Brokkoli", "Brombeere", "Brot", "Brotaufstrich", "Brotsuppe", "Brotteig", "Brunnenkresse", "Brühwürfel", "Buchweizen", "Bulgur", "Butter", "Buttercreme", "Buttergebäck", "Butterkäse", "Butterkeks", "Butterpilz", "Büchsenmilch", "Béchamelsauce", "Chiasamen", "Chicken", "Nugetts", "Chicorée", "Chili", "Chilisauce", "Chilisoße", "Chinakohl", "Chorizo", "Christstollen", "Ciabatta", "Citrusfrucht", "Clementine", "Consommé", "Cookie", "Corned", "beef", "Cornflakes", "Couscous", "Cranberry", "Croissant", "Crème fraîche", "Curry", "Currypulver", "Currysauce", "Currysoße", "Currywurst", "Béchamelsoße"]
+    
+    func insertProduct(_ product: String) {
+        if 0 == products.filter({ product == $0 }).count {
+            products.insert(product, at: 0)
+            products.sort(by: { $0 < $1 } )
+        }
+    }
+}

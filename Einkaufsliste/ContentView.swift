@@ -9,20 +9,25 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @EnvironmentObject var products: Products
     @EnvironmentObject var groceriesList: GroceriesList
 
     @State var newEntry = ""
     @State var typing = false
+    
+    @State private var showingAlert = false
 
     var body: some View {
         VStack{
             TextField("Neuer Eintrag", text: $newEntry, onEditingChanged: { self.typing = $0 }, onCommit: addNewEntry)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Fehler"), message: Text("Name:Anzahl Einheit"), dismissButton: .default(Text("Ok")))
+                }
             
-            if isTyping() && !newEntry.isEmpty && products.filter({ $0.hasPrefix(newEntry) }).count > 0 {
-                SuggestionsView(newEntry: $newEntry)
-                {
+            if isTyping() && !newEntry.isEmpty && products.products.filter({ $0.hasPrefix(newEntry) }).count > 0 {
+                SuggestionsView(newEntry: $newEntry) {
                     addNewEntry()
                 }
                 .padding()
@@ -38,19 +43,18 @@ struct ContentView: View {
     
     func addNewEntry() {
         var grocerieItem = GrocerieItem(name: "", quantity: 1.0, unit: "")
-        grocerieItem.fromString(entry: newEntry)
         
-        let answer =
-            GrocerieItem(name: newEntry.trimmingCharacters(in: .whitespacesAndNewlines), quantity: 8, unit: "kg")
+        do {
+            try grocerieItem.fromString(entry: newEntry)
+            groceriesList.insertItem(grocerieItem)
 
-        guard answer.name.count > 0 else {
-            return
+            products.insertProduct(grocerieItem.name)
+            
+            newEntry = ""
         }
-        // extra validation
-        
-        groceriesList.insertItem(grocerieItem)
-        products.insert(newEntry, at: 0)
-        newEntry = ""
+        catch {
+            self.showingAlert = true
+        }
     }
 }
 

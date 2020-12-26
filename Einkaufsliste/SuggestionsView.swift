@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SuggestionsView: View {
+    @EnvironmentObject var products: Products
     @Binding var newEntry: String
     var onAction: () -> Void
 
@@ -27,7 +28,7 @@ struct SuggestionsView: View {
         var height = CGFloat.zero
 
         return ZStack(alignment: .topLeading) {
-            ForEach(products.filter({ $0.hasPrefix(newEntry) }).prefix(15), id: \.self) { suggestion in
+            ForEach(products.products.filter({ $0.hasPrefix(newEntry) }).prefix(15), id: \.self) { suggestion in
                 Button(action: {
                     newEntry = suggestion
                     onAction()
@@ -42,7 +43,7 @@ struct SuggestionsView: View {
                                 height -= d.height
                             }
                             let result = width
-                            if suggestion == products.filter({ $0.hasPrefix(newEntry) }).prefix(15).last! {
+                            if suggestion == products.products.filter({ $0.hasPrefix(newEntry) }).prefix(15).last! {
                                 width = 0 //last item
                             } else {
                                 width -= d.width
@@ -51,7 +52,7 @@ struct SuggestionsView: View {
                         })
                         .alignmentGuide(.top, computeValue: {d in
                             let result = height
-                            if suggestion == products.filter({ $0.hasPrefix(newEntry) }).prefix(15).last! {
+                            if suggestion == products.products.filter({ $0.hasPrefix(newEntry) }).prefix(15).last! {
                                 height = 0 // last item
                             }
                             return result
